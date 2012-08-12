@@ -34,7 +34,7 @@ _G.i2LB.core.addStatToPlayer = function(player, stat)
 	local statObject = Instance.new("IntValue", player.leaderstats)
 	statObject.Name = stat.name
 	statObject.value = stat.default
-	player.realstates[stat.name] = stat.default
+	player.realstats[stat.name] = stat.default
 end
 
 game.Players.PlayerAdded:connect(function(player)

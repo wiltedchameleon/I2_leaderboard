@@ -13,6 +13,8 @@ _G.i2LB.players = {}
 _G.i2LB.stats = {}
 _G.i2LB.core = {}
 
+_G.i2LB.timeBetweenChecks = 30
+
 _G.i2LB.core.addPlayer = function(player, leaderstats)
 	_G.i2LB.players[player.Name] = {
 		["player"] = player,
@@ -28,6 +30,10 @@ _G.i2LB.core.addStat = function(statName, default)
 		["name"] = statName
 		["default"] = default or 0
 	}
+
+	for _, player in pairs(_G.i2LB.players) do
+		_G.i2LB.core.addStatToPlayer(player, _G.i2LB.stats[statName])
+	end
 end
 
 _G.i2LB.core.addStatToPlayer = function(player, stat)
@@ -35,6 +41,12 @@ _G.i2LB.core.addStatToPlayer = function(player, stat)
 	statObject.Name = stat.name
 	statObject.value = stat.default
 	player.realstats[stat.name] = stat.default
+end
+
+_G.i2LB.core.addAllStatsToPlayer = function(player)
+	for _, stat in pairs(_G.i2LB.core.stats) do
+		_G.i2LB.core.addStatToPlayer(player, stat)
+	end
 end
 
 game.Players.PlayerAdded:connect(function(player)

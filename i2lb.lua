@@ -13,24 +13,28 @@ _G.i2LB.players = {}
 _G.i2LB.stats = {}
 _G.i2LB.core = {}
 
-_G.i2LB.core.addPlayer = function(player)
+_G.i2LB.core.addPlayer = function(player, leaderstats)
 	_G.i2LB.players[player.Name] = {
 		["player"] = player,
-		["leaderstats"] = player.leaderstats,
+		["leaderstats"] = leaderstats,
 		["realstats"] = {}
 	}
+
+	_G.i2LB.core.addAllStatsToPlayer(player)
 end
 
-_G.i2LB.core.addStat = function(statName)
+_G.i2LB.core.addStat = function(statName, default)
 	_G.i2LB.stats[statName] = {
-		
+		["name"] = statName
+		["default"] = default or 0
 	}
 end
 
-_G.i2LB.core.addStatToPlayer = function(playerName, statName)
-	local plTable = _G.i2LB.players[playerName]
-	local statObject = Instance.new("IntValue", plTable.leaderstats).Name = statName
-	plTable.realstates[statName] = 0
+_G.i2LB.core.addStatToPlayer = function(player, stat)
+	local statObject = Instance.new("IntValue", player.leaderstats)
+	statObject.Name = stat.name
+	statObject.value = stat.default
+	player.realstates[stat.name] = stat.default
 end
 
 game.Players.PlayerAdded:connect(function(player)

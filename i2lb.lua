@@ -23,7 +23,8 @@ _G.i2LB.players = {}
 _G.i2LB.stats = {}
 _G.i2LB.core = {}
 
-_G.i2LB.timeBetweenChecks = 30
+_G.i2LB.nameAndShame = true
+_G.i2LB.nameAndShameTime = 5
 
 _G.i2LB.core.addPlayer = function(player, leaderstats)
 	_G.i2LB.players[player.Name] = {
@@ -51,6 +52,20 @@ _G.i2LB.core.addStatToPlayer = function(player, stat)
 	statObject.Name = stat.name
 	statObject.Value = stat.default
 	player.realstats[stat.name] = stat.default
+
+	statObject.Changed:connect(function()
+		if statObject.Value ~= player.realstats[stat.name] then
+			-- Exploiting
+			statObject.Value = player.realstats[stat.name]
+
+			if (.i2LB.nameAndShame then
+				local msg = Instance.new("Message", Workspace)
+				msg.Text = player.player.Name .. " was exploiting!"
+				wait(_G.i2LB.nameAndShameTime)
+				msg:Destroy()
+			end
+		end
+	end)
 end
 
 _G.i2LB.core.addAllStatsToPlayer = function(player)

@@ -1,3 +1,13 @@
+--[[
+	This work copyright (c) Ashley Davies (Trappingnoobs) 2012
+
+	This work is widely listed under the Creative Commons Attribution-NonCommercial 3.0 (CC BY-NC 3.0) license, however the author
+		reserves the right to deny permission to any person for any reason to use, reproduce by any digital or physical means,
+		and manipulate/modify this document at any time for any reason.
+
+	The above notice must stay intact across all modifications of the program, and may not be modified.
+]]
+
 _G.i2LB = {}
 _G.innovation2Leaderboard = _G.i2LB
 _G.innovation2LB = _G.i2LB
@@ -48,6 +58,24 @@ _G.i2LB.core.addAllStatsToPlayer = function(player)
 		_G.i2LB.core.addStatToPlayer(player, stat)
 	end
 end
+
+
+-- Public API
+
+_G.i2LB.addStat = function(statName, default)
+	-- Wrapper for back-end manipulation
+	_G.i2LB.core.addStat(statName, default)
+end
+
+_G.i2LB.incrStat = function(player, statName, amount)
+	player = (player.IsA and player or game.Players:GetPlayer(player))
+	stat = _G.i2LB.stat[statName]
+
+	assert(stat, "Stat does not exist (Are you sure you created it with the i2 leaderboard API?)")
+	_G.i2LB.core.incrStat(player, stat, amount)
+end
+
+-- Other stuff
 
 game.Players.PlayerAdded:connect(function(player)
 	wait() -- Foolproof

@@ -58,7 +58,7 @@ _G.i2LB.core.addStatToPlayer = function(player, stat)
 			-- Exploiting
 			statObject.Value = player.realstats[stat.name]
 
-			if (.i2LB.nameAndShame then
+			if _G.i2LB.nameAndShame then
 				local msg = Instance.new("Message", Workspace)
 				msg.Text = player.player.Name .. " was exploiting!"
 				wait(_G.i2LB.nameAndShameTime)
